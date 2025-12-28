@@ -1,6 +1,7 @@
 package pl.ros.commons.entities;
 
 //import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.MappedSuperclass;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-//@MappedSuperclass
+@MappedSuperclass
 public abstract class AbstractCustomEntity<ID> {
     protected String status;
     protected LocalDateTime createdAt;

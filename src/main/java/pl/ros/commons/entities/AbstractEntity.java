@@ -1,5 +1,6 @@
 package pl.ros.commons.entities;
 
+import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -7,7 +8,7 @@ import lombok.experimental.SuperBuilder;
 @Data
 @SuperBuilder
 @NoArgsConstructor
-//@MappedSuperclass
+@MappedSuperclass
 public abstract class AbstractEntity extends AbstractCustomEntity<Long>{
 
 }
