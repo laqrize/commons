@@ -1,5 +1,6 @@
 package pl.ros.commons.enums;
 
+
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
