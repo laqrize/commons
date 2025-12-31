@@ -1,12 +1,21 @@
 package pl.ros.commons.services.context;
 
+import lombok.NonNull;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import pl.ros.commons.dtos.context.SecurityUser;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+
 @Component
 public class ContextService implements IContextService{
+    @Value("${system.user.email}")
+    private String systemUserEmail;
+
     @Override
     public SecurityUser getCurrentUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -43,5 +52,16 @@ public class ContextService implements IContextService{
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public void setSystemUserInContext() {
+        setUserInContext(1L, systemUserEmail);
+    }
+
+    public void setUserInContext(Long id, @NonNull String email) {
+        SecurityUser user = new SecurityUser(id, null, email, new HashSet<>());
+        Authentication authentication = new UsernamePasswordAuthenticationToken(
+                user, null, user.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 }

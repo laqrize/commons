@@ -7,4 +7,5 @@ public interface IContextService {
     Long getCurrentUserId();
     String getCurrentUserEmail();
     boolean isAuthenticated();
+    public void setSystemUserInContext();
 }
