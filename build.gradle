@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'pl.ros'
-version = '1.0.0-5'
+version = '1.0.0-6'
 description = 'commons'
 
 java {
