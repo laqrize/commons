@@ -7,6 +7,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -22,7 +23,7 @@ import java.util.List;
 import java.util.Set;
 
 import static pl.ros.commons.enums.JwtClaims.*;
-
+@Slf4j
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Value("${jwt.secret}")
@@ -46,6 +47,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         );
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             } catch (Exception e) {
+                log.error("Could not set user authentication in security context", e);
                 SecurityContextHolder.clearContext();
             }
         }
