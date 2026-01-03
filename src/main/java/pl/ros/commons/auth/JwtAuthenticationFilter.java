@@ -2,6 +2,7 @@ package pl.ros.commons.auth;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -56,7 +57,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 
     private SecurityUser parseTokenToSecurityUser(String token) {
-        SecretKey key = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
+        byte[] keyBytes = Decoders.BASE64.decode(jwtSecret);
+        SecretKey key = Keys.hmacShaKeyFor(keyBytes);
+
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
